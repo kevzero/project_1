@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda Cliente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <section class="client-card">
+            <h2>Scheda Cliente</h2>
+            <p><strong>Nome Cliente:</strong> <span id="clientName"></span></p>
+            <p><strong>Descrizione Lavorazione:</strong> <span id="jobDescription"></span></p>
+            <p><strong>Stato Lavorazione:</strong> <span id="jobStatus"></span></p>
+            <p><strong>Ore Effettuate:</strong> <span id="hoursWorked"></span></p>
+            <button id="savePdfBtn">Salva in PDF</button>
+        </section>
+    </main>
+    <script src="jspdf.es.min.js"></script>
+    <script>
+        document.getElementById('savePdfBtn').addEventListener('click', () => {
+            import('jspdf').then(jsPDF => {
+                const doc = new jsPDF.jsPDF();
+                const clientName = document.getElementById('clientName').innerText;
+                const jobDescription = document.getElementById('jobDescription').innerText;
+                const jobStatus = document.getElementById('jobStatus').innerText;
+                const hoursWorked = document.getElementById('hoursWorked').innerText;
+
+                doc.text(`Nome Cliente: ${clientName}`, 10, 10);
+                doc.text(`Descrizione Lavorazione: ${jobDescription}`, 10, 20);
+                doc.text(`Stato Lavorazione: ${jobStatus}`, 10, 30);
+                doc.text(`Ore Effettuate: ${hoursWorked}`, 10, 40);
+
+                doc.save('scheda_cliente.pdf');
+            });
+        });
+    </script>
+</body>
+
+</html>
